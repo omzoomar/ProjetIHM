@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import modele.GenerateurDeCouleurs;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,13 +112,13 @@ public class LancerApp extends Application {
 		 * Création d'une ArrayList contenant les palettes de couleurs
 		 */
 		List<HBox> box = new ArrayList<>();
-	    for(int i=0;i<10;i++)
+	    for(int i=0;i<5;i++)
 	       box.add(addCouleur());
 
 		/**
 		 * Ajout de chaque palette au contenu
 		 */
-	    for(int i=0;i<10;i++)
+	    for(int i=0;i<5;i++)
 	        vbox.getChildren().addAll(box.get(i));
 
 	    return vbox;
@@ -147,26 +149,45 @@ public class LancerApp extends Application {
 		/**
 		 * Création d'un texte affichant le RGB de la couleur correspondante
 		 */
-	    Text title = new Text("R : "+Math.round(couleur.getRed()*255)
+	    Text titleRGB = new Text("R : "+Math.round(couleur.getRed()*255)
 	        +" G : "+Math.round(couleur.getGreen()*255)
 	        +" B : "+Math.round(couleur.getBlue()*255));
-	    title.setFont(Font.font("Verdana", 14));
+	    titleRGB.setFont(Font.font("Verdana", 14));
+
+		/**
+		 * Création d'un texte affichant le RGB de la couleur correspondante
+		 */
+	    Text titleHSB = new Text("R : "+Math.round(couleur.getRed()*255)
+	        +" G : "+Math.round(couleur.getGreen()*255)
+	        +" B : "+Math.round(couleur.getBlue()*255));
+	    titleHSB.setFont(Font.font("Verdana", 14));
+
+        GenerateurDeCouleurs generateur =  new GenerateurDeCouleurs();
+
+        generateur.genererEchantillon(5);
+
+        for(Color color : generateur.getCouleurs()) {
+//            System.out.println(color.grayscale());
+			recColor.setFill(color);
+			recGray.setFill(color.grayscale());
+        }
 
 		/**
 		 * Attribution de la couleur
 		 */
-		recColor.setFill(couleur);
-		recGray.setFill(couleur.grayscale());
+//		recColor.setFill(couleur);
+//		recGray.setFill(couleur.grayscale());
 
 		/**
 		 * Action au changement de couleur
 		 */
-		changerCouleur(colorPicker, title, recColor, recGray);
+		changerCouleur(colorPicker, titleRGB, titleHSB, recColor, recGray);
 
 		/**
 		 * Ajout des éléments au noeud
 		 */
-	    hbox.getChildren().addAll(colorPicker, recColor, recGray, title);
+//	    hbox.getChildren().addAll(colorPicker, recColor, recGray, titleRGB, titleHSB);
+	    hbox.getChildren().addAll(recColor, recGray);
 
 		return hbox;
 	}
@@ -174,10 +195,10 @@ public class LancerApp extends Application {
 	/**
 	 * Méthode permettant d'actualiser l'affichage en fonction du changement de couleur
 	 */
-	public void changerCouleur(ColorPicker color, Text title, Rectangle recColor, Rectangle recGray) {
+	public void changerCouleur(ColorPicker color, Text titleRGB, Text titleHSB, Rectangle recColor, Rectangle recGray) {
 		color.setOnAction(new EventHandler() {
             public void handle(Event t) {
-				title.setText("R : "+Math.round(color.getValue().getRed()*255)
+				titleRGB.setText("R : "+Math.round(color.getValue().getRed()*255)
 			        +" G : "+Math.round(color.getValue().getGreen()*255)
 	                +" B : "+Math.round(color.getValue().getBlue()*255));
            		recColor.setFill(color.getValue());

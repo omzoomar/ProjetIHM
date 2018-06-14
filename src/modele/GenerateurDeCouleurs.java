@@ -40,8 +40,18 @@ public class GenerateurDeCouleurs {
      */
     public void genererEchantillon(int nbCouleurs) {
         couleurs.clear();
-        for (int i = 0; i < nbCouleurs; i++) {
-            couleurs.add(genererCouleur());
+        int j;
+        Color couleur = genererCouleur();
+
+		for (int i = 0; i < nbCouleurs; i++) {
+			couleurs.add(genererCouleur());
+	        do {
+	            j = 0;
+		        for (int k=0;k<nbCouleurs;k++) {
+		            if(couleurs.get(i) == couleur)
+						j++;
+		        }
+	        } while(j != 0);
         }
         this.trier();
     }

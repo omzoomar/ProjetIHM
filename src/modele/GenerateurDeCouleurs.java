@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 /**
@@ -12,6 +13,16 @@ import java.util.Random;
 public class GenerateurDeCouleurs {
     ArrayList<Color> couleurs;
     Random random;
+
+    class ComparateurNiveauGris implements Comparator<Color>{
+        public int compare(Color c1, Color c2){
+            return valeurNiveauGris(c1).compareTo(valeurNiveauGris(c2));
+        }
+
+        private Integer valeurNiveauGris(Color couleur) {
+            return Math.toIntExact(Math.round(0.21*couleur.getRed()*255 + 0.71*couleur.getGreen()*255 + 0.07*couleur.getBlue()*255));
+        }
+    }
 
     /**
      * Constructeur
@@ -60,7 +71,7 @@ public class GenerateurDeCouleurs {
      * Fonction de trie de l'arrayList de couleurs, elles sont triées selon leur valeur en niveau de gris
      */
     public void trier() {
-        Collections.sort(couleurs, (c1, c2) -> Math.round((float) c1.grayscale().getRed() * 255) - Math.round((float) c2.grayscale().getRed() * 255));
+        Collections.sort(couleurs, new ComparateurNiveauGris());
     }
 
     /**

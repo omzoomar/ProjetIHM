@@ -38,17 +38,18 @@ public class CouleurAleatoire {
 		/**
 		 * Création d'une ArrayList contenant les palettes de couleurs
 		 */
+
+        generateur.genererEchantillon(10);
+
 		List<HBox> box = new ArrayList<>();
-	    for(int i=0;i<10;i++) {
-			generateur.genererEchantillon(10);
-			box.add(addCouleur(generateur));
-	    }
+	    for(Color c: generateur.getCouleurs())
+	       box.add(addCouleur(c));
 
 		/**
 		 * Ajout de chaque palette au contenu
 		 */
-	    for(int i=0;i<10;i++)
-	        vbox.getChildren().addAll(box.get(i));
+	    for(HBox b: box)
+	        vbox.getChildren().add(b);
 
 	    return vbox;
 	}
@@ -56,7 +57,7 @@ public class CouleurAleatoire {
 	/**
 	 * Affichage d'une palette, de la couleur, du niveau de gris et du RGB correspondant
 	 */
-	public HBox addCouleur(GenerateurDeCouleurs generateur) {
+	public HBox addCouleur(Color color) {
 		Rectangle recColor;
 		Rectangle recGray;
 		Text titleRGB = new Text();
@@ -86,30 +87,28 @@ public class CouleurAleatoire {
 
 		tooltip.setText("Code couleur copié !");
 
-        for(Color color : generateur.getCouleurs()) {
-			recColor.setFill(color);
-			recGray.setFill(color.grayscale());
+		recColor.setFill(color);
+		recGray.setFill(color.grayscale());
 
-		    titleRGB.setText("RGB : "+Math.round(color.getRed()*255)
-		        +", "+Math.round(color.getGreen()*255)
-		        +", "+Math.round(color.getBlue()*255));
-		    titleRGBHexa.setText(color.toString().replace("0x","#").toUpperCase());
-	        titleRGBHexa.setOnMouseClicked(e -> {
-       			content.putString(color.toString().replace("0x","#").toUpperCase());
-				clipboard.setContent(content);
-				Tooltip.install(titleRGBHexa, tooltip);
-            });
+	    titleRGB.setText("RGB : "+Math.round(color.getRed()*255)
+	        +", "+Math.round(color.getGreen()*255)
+	        +", "+Math.round(color.getBlue()*255));
+	    titleRGBHexa.setText(color.toString().replace("0x","#").toUpperCase());
+        titleRGBHexa.setOnMouseClicked(e -> {
+            content.putString(color.toString().replace("0x","#").toUpperCase());
+			clipboard.setContent(content);
+			Tooltip.install(titleRGBHexa, tooltip);
+        });
 
-		    titleHSB.setText("HSB : "+Math.round(color.getHue())
-		        +", "+Math.round(color.getSaturation()*255)
-		        +", "+Math.round(color.getBrightness()*255));
-		    titleHSBHexa.setText(color.grayscale().toString().replace("0x","#").toUpperCase());
-	        titleHSBHexa.setOnMouseClicked(e -> {
-       			content.putString(color.grayscale().toString().replace("0x","#").toUpperCase());
-				clipboard.setContent(content);
-				Tooltip.install(titleHSBHexa, tooltip);
-            });
-		}
+	    titleHSB.setText("HSB : "+Math.round(color.getHue())
+	        +", "+Math.round(color.getSaturation()*255)
+	        +", "+Math.round(color.getBrightness()*255));
+	    titleHSBHexa.setText(color.grayscale().toString().replace("0x","#").toUpperCase());
+        titleHSBHexa.setOnMouseClicked(e -> {
+            content.putString(color.grayscale().toString().replace("0x","#").toUpperCase());
+			clipboard.setContent(content);
+			Tooltip.install(titleHSBHexa, tooltip);
+        });
 
 		VBox vboxTitle = new VBox();
 	    titleRGB.setFont(Font.font("Verdana", 12));

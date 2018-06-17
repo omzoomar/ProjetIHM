@@ -67,36 +67,11 @@ public class GenerateurDeCouleurs {
         this.trier();
     }
 
-    public double valeurGris(Color couleur) {
-        return couleur.grayscale().getRed();
-    }
-
     /**
      * Fonction de trie de l'arrayList de couleurs, elles sont triées selon leur valeur en niveau de gris
      */
-//    public void trier() {
-//        Collections.sort(couleurs, new ComparateurNiveauGris());
-//    }
-
-    public void trier(){
-        boolean permutation = true;
-
-        while (permutation) {
-            permutation = false;
-
-            for (int i =  0 ; i < couleurs.size() - 1 ; i++){
-                if(valeurGris(couleurs.get(i)) > valeurGris(couleurs.get(i+1))){
-                    System.out.println(valeurGris(couleurs.get(i)) + " > " + valeurGris(couleurs.get(i+1)));
-                    Collections.swap(couleurs, i, i + 1);
-                    permutation = true;
-                }
-            }
-        }
-
-        System.out.println("\n Affichage du tableau\n");
-        for(Color couleur : couleurs){
-            System.out.println(valeurGris(couleur));
-        }
+    public void trier() {
+        Collections.sort(couleurs, new ComparateurNiveauGris());
     }
 
     /**

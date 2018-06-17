@@ -1,6 +1,4 @@
 package couleur;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ColorPicker;
@@ -19,23 +17,23 @@ import java.util.List;
 
 public class CouleurPalettes {
 	public VBox palettesDeCouleursChoisies() {
-		/**
-		 * Création du contenu
+		/*
+		  Création du contenu
 		 */
 	    VBox vbox = new VBox();
 	    vbox.setPadding(new Insets(10, 800, 20, 10));
 	    vbox.setSpacing(8);
         vbox.setAlignment(Pos.CENTER);
 
-		/**
-		 * Création d'une ArrayList contenant les palettes de couleurs
+		/*
+		  Création d'une ArrayList contenant les palettes de couleurs
 		 */
 		List<HBox> box = new ArrayList<>();
 	    for(int i=0;i<10;i++)
 	       box.add(addCouleur());
 
-		/**
-		 * Ajout de chaque palette au contenu
+		/*
+		  Ajout de chaque palette au contenu
 		 */
 	    for(int i=0;i<10;i++)
 	        vbox.getChildren().addAll(box.get(i));
@@ -46,7 +44,7 @@ public class CouleurPalettes {
 	/**
 	 * Affichage d'une palette, de la couleur, du niveau de gris et du RGB correspondant
 	 */
-	public HBox addCouleur() {
+	private HBox addCouleur() {
 		ColorPicker colorPicker = new ColorPicker();
 		Color color = colorPicker.getValue();
 		Rectangle recColor;
@@ -59,8 +57,8 @@ public class CouleurPalettes {
 		ClipboardContent content = new ClipboardContent();
 		Tooltip tooltip = new Tooltip();
 
-		/**
-		 * Création d'une barre horizontale
+		/*
+		  Création d'une barre horizontale
 		 */
 	    HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(5));
@@ -68,59 +66,87 @@ public class CouleurPalettes {
 	    hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.setStyle("-fx-border-style: none none solid none; -fx-border-width: 1; -fx-border-color: #cfc6ca;");
 
-		/**
-		 * Création d'un rectangle affichant la couleur et d'un rectangle affichant le niveau de gris correspondant
+		/*
+		  Création d'un rectangle affichant la couleur et d'un rectangle affichant le niveau de gris correspondant
 		 */
 		recColor = new Rectangle(230, 25);
 		recGray = new Rectangle(230, 25);
 		StackPane stackColor = new StackPane();
 		StackPane stackGray = new StackPane();
 
+		/*
+			Création d'une info-bulle informant que la couleur a bien été copiée.
+		 */
 		tooltip.setText("Code couleur copié !");
 
+		/*
+			Ajout de la couleur et du niveau de gris aux rectangles.
+		 */
 		recColor.setFill(color);
 		recGray.setFill(color.grayscale());
 
+		/*
+			Ajout du code couleur en RGB
+		 */
 	    titleRGB.setText("RGB : "+Math.round(color.getRed()*255)
 	        +", "+Math.round(color.getGreen()*255)
 	        +", "+Math.round(color.getBlue()*255));
+		/*
+			Ajout du code couleur en hexadécimal
+		 */
 	    titleRGBHexa.setText(color.toString().replace("0x","#").substring(0,7).toUpperCase());
+		/*
+			Copie lors du clic sur le texte
+		 */
         titleRGBHexa.setOnMouseClicked(e -> {
             content.putString(color.toString().replace("0x","#").substring(0,7).toUpperCase());
 			clipboard.setContent(content);
 			Tooltip.install(titleRGBHexa, tooltip);
         });
 
+		/*
+			Ajout du code couleur en HSB
+		 */
 	    titleHSB.setText("HSB : "+Math.round(color.getHue())
 	        +", "+Math.round(color.getSaturation()*255)
 	        +", "+Math.round(color.getBrightness()*255));
+		/*
+			Ajout du code couleur en hexadécimal
+		 */
 	    titleHSBHexa.setText(color.grayscale().toString().replace("0x","#").substring(0,7).toUpperCase());
+		/*
+			Copie lors du clic sur le texte
+		 */
         titleHSBHexa.setOnMouseClicked(e -> {
             content.putString(color.grayscale().toString().replace("0x","#").substring(0,7).toUpperCase());
 			clipboard.setContent(content);
 			Tooltip.install(titleHSBHexa, tooltip);
         });
 
+		/*
+			VBox contenant les valeurs RGB et HSB
+		 */
 		VBox vboxTitle = new VBox();
-
 	    titleRGB.setFont(Font.font("Verdana", 12));
 	    titleRGB.setFill(Color.GREEN);
-
 		titleHSB.setFont(Font.font("Verdana", 12));
 		titleHSB.setFill(Color.RED);
 		vboxTitle.getChildren().addAll(titleRGB, titleHSB);
 
+		/*
+			StackPane permettant l'affichage du texte dans les rectangles
+		 */
 		stackColor.getChildren().addAll(recColor, titleRGBHexa);
 		stackGray.getChildren().addAll(recGray, titleHSBHexa);
 
-		/**
-		 * Action au changement de couleur
+		/*
+		  Action au changement de couleur
 		 */
 		changerCouleur(colorPicker, titleRGB, titleHSB, titleRGBHexa, titleHSBHexa, recColor, recGray, content,
 		clipboard, tooltip);
 
-		/**
-		 * Ajout des éléments au noeud
+		/*
+		  Ajout des éléments au noeud
 		 */
 	    hbox.getChildren().addAll(colorPicker, stackColor, stackGray, vboxTitle);
 
@@ -129,9 +155,20 @@ public class CouleurPalettes {
 
 	/**
 	 * Méthode permettant d'actualiser l'affichage en fonction du changement de couleur
+	 * Changement au clic de :
+	 * Outil ColorPicker,
+	 * Valeurs RGB,
+	 * Valeurs HSB,
+	 * Code hexa Couleur,
+	 * Code hexa Niveau de gris,
+	 * Rectangle couleur,
+	 * Rectangle Niveau de gris,
+	 * Outil de copie
+	 * Contenu copié
+	 * Info-bulle
 	 */
-	public void changerCouleur(ColorPicker color, Text titleRGB, Text titleHSB, Text titleRGBHexa, Text titleHSBHexa,
-	Rectangle recColor, Rectangle recGray, ClipboardContent content, Clipboard clipboard, Tooltip tooltip) {
+	private void changerCouleur(ColorPicker color, Text titleRGB, Text titleHSB, Text titleRGBHexa, Text titleHSBHexa,
+		                           Rectangle recColor, Rectangle recGray, ClipboardContent content, Clipboard clipboard, Tooltip tooltip) {
 		color.setOnAction(e -> {
 			recColor.setFill(color.getValue());
 			recGray.setFill(color.getValue().grayscale());

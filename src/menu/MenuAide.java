@@ -13,8 +13,8 @@ public class MenuAide {
 		String aide3 = "Fichier > Générer des couleurs\n\n\n";
 		String aide4 = "Pour copier le code d'une couleur, cliquez dessus !";
 
-		/**
-		 * Création du contenu
+		/*
+		  Création du contenu
 		 */
         VBox box = new VBox();
         box.setPadding(new Insets(10, 0, 0, 10));
@@ -30,8 +30,8 @@ public class MenuAide {
         labelaide4.setFont(Font.font(13));
 		labelaide4.setStyle("-fx-font-weight:bold");
 
-		/**
-		 * Ajout des labels au noeud
+		/*
+		  Ajout des labels au noeud
 		 */
         box.getChildren().add(labelaide1);
         box.getChildren().add(labelaide2);
@@ -45,12 +45,12 @@ public class MenuAide {
 		String aide1 = "Les palettes de couleurs sont affichées en utilisant l'outil ColorPicker, qui fournit une " +
 		 "gestion complète du choix de couleur.\n";
 		String aide2 = "Vous pouvez combiner une infinité de couleurs qui ne vous sont pas imposées !\n\n";
-		String aide3 = "Vous pouvez générer une gamme de couleurs à l'infini en utilisant le menu :";
-		String aide4 = "Fichier > Générer des couleurs\n\n\n";
+		String aide3 = "Vous pouvez choisir des couleurs à l'infini en utilisant le menu :";
+		String aide4 = "Fichier > Choisir des couleurs\n\n\n";
 		String aide5 = "Pour copier le code d'une couleur, cliquez dessus !";
 
-		/**
-		 * Création du contenu
+		/*
+		  Création du contenu
 		 */
         VBox box = new VBox();
         box.setPadding(new Insets(10, 0, 0, 10));
@@ -67,8 +67,8 @@ public class MenuAide {
         labelaide5.setFont(Font.font(13));
 		labelaide5.setStyle("-fx-font-weight:bold");
 
-		/**
-		 * Ajout des labels au noeud
+		/*
+		  Ajout des labels au noeud
 		 */
         box.getChildren().add(labelaide1);
         box.getChildren().add(labelaide2);

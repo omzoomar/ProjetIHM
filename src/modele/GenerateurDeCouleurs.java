@@ -11,8 +11,8 @@ import java.util.Random;
  * Class qui génére des couleurs au hazard et les classe selon leur niveau de gris
  */
 public class GenerateurDeCouleurs {
-    ArrayList<Color> couleurs;
-    Random random;
+    private ArrayList<Color> couleurs;
+    private Random random;
 
     class ComparateurNiveauGris implements Comparator<Color>{
         public int compare(Color c1, Color c2){
@@ -36,7 +36,7 @@ public class GenerateurDeCouleurs {
      * Génére une couleur au hazard
      * @return Color
      */
-    public Color genererCouleur() {
+    private Color genererCouleur() {
         int r = random.nextInt(256);
         int g = random.nextInt(256);
         int b = random.nextInt(256);
@@ -70,7 +70,7 @@ public class GenerateurDeCouleurs {
     /**
      * Fonction de trie de l'arrayList de couleurs, elles sont triées selon leur valeur en niveau de gris
      */
-    public void trier() {
+    private void trier() {
         Collections.sort(couleurs, new ComparateurNiveauGris());
     }
 

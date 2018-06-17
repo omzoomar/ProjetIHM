@@ -3,7 +3,7 @@ package essai;
 import javafx.scene.paint.Color;
 import modele.GenerateurDeCouleurs;
 
-public class EssaiGenerateur {
+class EssaiGenerateur {
 
     public static void main(String[] args) {
         GenerateurDeCouleurs generateur =  new GenerateurDeCouleurs();

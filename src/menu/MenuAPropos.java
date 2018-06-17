@@ -12,8 +12,8 @@ public class MenuAPropos {
 		String projet = "Projet de S2 : IHM\n\n";
 		String auteurs = "\nBilal RABBOUJ\nMickaël SPILMONT\nOmar DIALLO\nMohammed Amine BENNACER";
 
-		/**
-		 * Création du contenu
+		/*
+		  Création du contenu
 		 */
         VBox box = new VBox();
         box.setPadding(new Insets(10, 0, 0, 10));
@@ -23,8 +23,8 @@ public class MenuAPropos {
         Label labelA = new Label("Auteurs");
         Label labelAuteurs = new Label(auteurs);
 
-		/**
-		 * Ajout des labels au noeud
+		/*
+		  Ajout des labels au noeud
 		 */
         box.getChildren().add(labelProjet);
         box.getChildren().add(labelA);

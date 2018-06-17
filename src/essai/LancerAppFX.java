@@ -1,9 +1,7 @@
 package essai;
-import couleur.Couleur;
 import couleur.CouleurAleatoire;
 import couleur.CouleurPalettes;
 import javafx.application.Application;
-import javafx.event.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,11 +15,10 @@ import menu.MenuAide;
 import modele.GenerateurDeCouleurs;
 
 public class LancerAppFX extends Application {
-	BorderPane border;
-	Couleur c = new Couleur();
-	CouleurPalettes cp = new CouleurPalettes();
-	CouleurAleatoire ca = new CouleurAleatoire();
-	GenerateurDeCouleurs generateur =  new GenerateurDeCouleurs();
+	private BorderPane border;
+	private CouleurPalettes cp = new CouleurPalettes();
+	private CouleurAleatoire ca = new CouleurAleatoire();
+	private GenerateurDeCouleurs generateur =  new GenerateurDeCouleurs();
 
 	/**
 	 * Méthode Start
@@ -31,22 +28,22 @@ public class LancerAppFX extends Application {
 		Pane root = new Pane();
 		border = new BorderPane();
 
-		/**
-		 * Agencement de la barre horizontale en haut
+		/*
+		  Agencement de la barre horizontale en haut
 		 */
 		border.setTop(getMenu());
-		/**
-		 * Agencement du menu vertical en-dessous
+		/*
+		  Agencement du menu vertical en-dessous
 		 */
 		border.setLeft(topToolbar(new Label("Bienvenue et merci d'utiliser notre logiciel")));
 
-		/**
-		 * Ajout des noeuds à la fenêtre
+		/*
+		  Ajout des noeuds à la fenêtre
 		 */
         root.getChildren().addAll(border);
 		Scene scene = new Scene(root, 780, 610);
 		stage.setTitle("Interface d’optimisation du choix de couleurs");
-		stage.getIcons().add(new Image("file:../../AppIcon.png"));
+		stage.getIcons().add(new Image("file:AppIcon.png"));
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -54,32 +51,31 @@ public class LancerAppFX extends Application {
 	/**
 	 * Barre horizontale affichant le nom de l'application ainsi qu'un bouton A propos
 	 */
-	public VBox topToolbar(Label labelOption) {
+	private VBox topToolbar(Label labelOption) {
 		String nomApp = "Interface d’optimisation du choix de couleurs";
-        Stage stage = new Stage();
 
-		/**
-		 * Création de la barre
+		/*
+		  Création de la barre
 		 */
         VBox box = new VBox();
         box.setPadding(new Insets(10, 770, 10, 210));
 		box.setStyle("-fx-background-color: #ffffff;");
         box.setAlignment(Pos.CENTER);
 
-		/**
-		 * Déclaration d'un label contenant le nom de l'application
+		/*
+		  Déclaration d'un label contenant le nom de l'application
 		 */
         Label labelNom = new Label(nomApp);
 		labelNom.setFont(Font.font("Verdana", 16));
 		labelNom.setTextAlignment(TextAlignment.CENTER);
 
-		/**
-		 * Retour chariot
+		/*
+		  Retour chariot
 		 */
 		 Label labelRetour = new Label("\n");
 
-		/**
-		 * Ajout des labels au noeud
+		/*
+		  Ajout des labels au noeud
 		 */
         box.getChildren().add(labelNom);
         box.getChildren().add(labelRetour);
@@ -88,7 +84,7 @@ public class LancerAppFX extends Application {
 	    return box;
 	}
 
-	public MenuBar getMenu() {
+	private MenuBar getMenu() {
 		MenuBar menuBar = new MenuBar();
 		MenuAide ma = new MenuAide();
 		MenuAPropos map = new MenuAPropos();
@@ -110,9 +106,7 @@ public class LancerAppFX extends Application {
 			border.setBottom(null);
         });
 		MenuItem quitter = new MenuItem("Quitter");
-        quitter.setOnAction(e -> {
-			System.exit(0);
-        });
+        quitter.setOnAction(e -> System.exit(0));
 
         menuFile.getItems().add(generer);
         menuFile.getItems().add(choisir);

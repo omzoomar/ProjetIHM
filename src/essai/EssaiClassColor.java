@@ -2,7 +2,7 @@ package essai;
 
 import javafx.scene.paint.Color;
 
-public class EssaiClassColor {
+class EssaiClassColor {
 
     public static void main(String[] args) {
         Color couleur1 = Color.rgb(10, 230, 128);

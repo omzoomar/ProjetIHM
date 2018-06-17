@@ -43,7 +43,7 @@ public class LancerAppFX extends Application {
         root.getChildren().addAll(border);
 		Scene scene = new Scene(root, 780, 610);
 		stage.setTitle("Interface d’optimisation du choix de couleurs");
-		stage.getIcons().add(new Image("file:../../AppIcon.png"));
+		stage.getIcons().add(new Image("file:AppIcon.png"));
 		stage.setScene(scene);
 		stage.show();
 	}

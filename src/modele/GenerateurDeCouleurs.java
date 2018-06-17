@@ -24,6 +24,7 @@ public class GenerateurDeCouleurs {
 
     /**
      * Génére une couleur au hazard
+     *
      * @return Color
      */
     public Color genererCouleur() {
@@ -37,24 +38,29 @@ public class GenerateurDeCouleurs {
     /**
      * Genere un nombre de couleur égale à l'entier passé en paramètre, ces couleurs sont contenues dans une ArrayList
      * et selons leur rendu en niveau de gris
+     *
      * @param nbCouleurs
      */
     public void genererEchantillon(int nbCouleurs) {
+        Color couleur;
+        int borneA = 5;
+        int borneB = 20;
         couleurs.clear();
-        int j;
-        Color couleur = genererCouleur();
 
-		for (int i = 0; i < nbCouleurs; i++) {
-			couleurs.add(genererCouleur());
-	        do {
-	            j = 0;
-		        for (int k=0;k<nbCouleurs;k++) {
-		            if(couleurs.get(i) == couleur)
-						j++;
-		        }
-	        } while(j != 0);
+        while (couleurs.size() < nbCouleurs) {
+            couleur = this.genererCouleur();
+
+            if (valeurNiveauGris(couleur) >= borneA && valeurNiveauGris(couleur) <= borneB) {
+                couleurs.add(couleur);
+                borneA += 25.00;
+                borneB += 25.00;
+            }
         }
-        this.trier();
+    }
+
+    public double valeurNiveauGris(Color couleur) {
+        //System.out.println(Math.toIntExact(Math.round(couleur.grayscale().getRed() * 255)));
+        return couleur.grayscale().getRed() * 255;
     }
 
     /**
@@ -66,6 +72,7 @@ public class GenerateurDeCouleurs {
 
     /**
      * Méthode qui retourne l'ArrayList de couleurs
+     *
      * @return ArrayList de Color
      */
     public ArrayList<Color> getCouleurs() {

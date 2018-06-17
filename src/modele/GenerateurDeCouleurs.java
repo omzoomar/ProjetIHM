@@ -14,17 +14,6 @@ public class GenerateurDeCouleurs {
     ArrayList<Color> couleurs;
     Random random;
 
-    class ComparateurNiveauGris implements Comparator<Color>{
-        public int compare(Color c1, Color c2){
-            return valeurNiveauGris(c1).compareTo(valeurNiveauGris(c2));
-        }
-
-//        Formule base sur la methode Color.grayscale de java
-        private Integer valeurNiveauGris(Color couleur) {
-            return Math.toIntExact(Math.round(0.21*couleur.getRed()*255 + 0.71*couleur.getGreen()*255 + 0.07*couleur.getBlue()*255));
-        }
-    }
-
     /**
      * Constructeur
      */
@@ -72,7 +61,7 @@ public class GenerateurDeCouleurs {
      * Fonction de trie de l'arrayList de couleurs, elles sont triées selon leur valeur en niveau de gris
      */
     public void trier() {
-        Collections.sort(couleurs, new ComparateurNiveauGris());
+        couleurs.sort((c1, c2) -> c1.grayscale().toString().compareTo(c2.grayscale().toString()));
     }
 
     /**
